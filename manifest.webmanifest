@@ -1,0 +1,23 @@
+{
+  "name": "Endcap — a field school for retail management",
+  "short_name": "Endcap",
+  "description": "A private field school for retail management: how stores make money, price, promote, merchandise, staff and compete.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#10213A",
+  "theme_color": "#10213A",
+  "categories": ["education", "business", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png",     "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png",     "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Question of the day", "short_name": "Daily", "url": "./#home", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Field kit", "short_name": "Field", "description": "Tally counter, queue timer and price audit", "url": "./#field", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Review", "short_name": "Review", "url": "./#reference/review", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

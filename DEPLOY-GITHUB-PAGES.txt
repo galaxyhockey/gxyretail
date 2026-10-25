@@ -1,0 +1,39 @@
+ENDCAP ON GITHUB PAGES
+======================
+
+Your site:  https://galaxyhockey.github.io/gxyretail/
+
+Pages hosts the files. Firebase (optional) does sign-in and the
+database. Leave assets/config.js in its PASTE state and the site runs in
+local-only mode on Pages too.
+
+1. TURN ON PAGES
+   Repo Settings -> Pages -> Deploy from a branch -> main, / (root).
+   Always use the trailing slash: /gxyretail/  not  /gxyretail
+   .nojekyll is included so every file is served as-is.
+
+2. (OPTIONAL) FIREBASE SYNC
+   a. Paste your web config into assets/config.js. You can reuse
+      Lyceum's Firebase project. Endcap uses users/{uid}/endcap.
+   b. Firebase -> Authentication -> Settings -> Authorised domains:
+      galaxyhockey.github.io (bare hostname, no path).
+   c. Firebase -> Authentication -> Sign-in method -> Google -> Enable.
+   d. Firestore Database -> Create database (production mode).
+   e. Push. Open the site. Sign in. A red "unlocked" banner appears.
+   f. Settings -> Access and storage -> copy both generated blocks.
+   g. Paste block 1 into assets/config.js. Commit and push.
+   h. Paste block 2 into Firestore -> Rules. Publish. (If the project is
+      shared with Lyceum, these rules cover both schools.)
+   i. Reload. Banner gone. Locked.
+
+3. RESTRICT THE API KEY (defence in depth)
+   console.cloud.google.com/apis/credentials -> Browser key ->
+   HTTP referrers: https://galaxyhockey.github.io/*  and  http://localhost:*/*
+
+NOTES
+- <meta name="robots" content="noindex, nofollow"> keeps it out of search.
+- The service worker caches the app. After an update you may need one
+  extra reload. Bump VERSION in sw.js when you change shell files.
+- Every *.github.io project site shares one origin. Endcap's service
+  worker only deletes its own endcap-* caches, and its storage keys are
+  prefixed endcap:, so it never disturbs Lyceum.

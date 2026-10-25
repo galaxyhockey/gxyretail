@@ -1,0 +1,38 @@
+ENDCAP — how to actually open this
+==================================
+
+You cannot double-click index.html. Browsers refuse to run JavaScript
+modules (and Firebase refuses to sign you in) from a file:// address.
+It must be served over HTTP.
+
+OPTION A — look at it right now, locally
+----------------------------------------
+Open a terminal in the folder containing index.html, then:
+
+    python3 -m http.server 8080        (Windows:  py -m http.server 8080)
+
+Open http://localhost:8080
+
+It ships in local-only mode: no sign-in, everything saved to this
+browser. Nothing to configure.
+
+OPTION B — publish it on GitHub Pages
+-------------------------------------
+Settings > Pages > Build and deployment > Deploy from a branch > main / (root)
+
+Live URL:  https://galaxyhockey.github.io/gxyretail/
+
+To sync across devices, fill in assets/config.js. The full walkthrough
+is in DEPLOY-GITHUB-PAGES.txt and README.md.
+
+WHAT'S INSIDE
+-------------
+Ten courses and 50 units on retail management, plus:
+  - a question of the day
+  - a spaced-repetition review deck
+  - 18 business-math labs
+  - graded assignments
+  - ten field assignments
+  - a field kit (tally counter, queue timer, price audit, unit price)
+  - a field notebook
+  - a glossary, formula sheet, case file and source library

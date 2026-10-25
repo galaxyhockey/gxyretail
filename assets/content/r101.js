@@ -1,0 +1,218 @@
+/* RTL 101 — How Retail Makes Money
+   Unit fields: n, title, sub, goal, body[], ask, terms[[t,d]], math{h,f[[formula,meaning]],b},
+   kase{kind:'fact'|'hypo', h, b, src[]}, field, lab, check{q,a}, qs[[q,[opts],i,why]], read[] */
+
+export default {
+id:'r101', code:'RTL 101', color:'#B4531F',
+title:'How Retail Makes Money',
+blurb:`What a retailer actually sells, the formats it can take, and the handful of numbers — gross margin, operating expense, turnover — that decide whether a store survives. Start here; every other course leans on these numbers.`,
+units:[
+
+{n:'1.1', title:'What a retailer actually does', sub:'The jobs a store does that a factory will not',
+ goal:`Explain why retailers exist at all, in terms of the specific work they do for both shoppers and manufacturers.`,
+ body:[
+ `A factory in Ohio makes 400,000 jars of peanut butter a week. You want one jar, today, ten minutes from your house, next to the bread and the jelly, at a price you can see before you commit. Nothing about the factory is set up to do that. The gap between "a lot of one thing, made far away" and "a little of many things, here and now" is the retailer's whole reason for existing.`,
+ `Textbooks list the retailer's jobs as <b>functions</b> of the distribution channel. In plain English: a retailer <b>assembles an assortment</b> (it chooses which few thousand products, out of millions, are worth your time); it <b>breaks bulk</b> (buys by the pallet, sells by the jar); it <b>holds inventory</b> (so you do not have to keep a month of everything at home); it provides a <b>location and hours</b>; and it provides <b>information</b> — prices, tags, displays, staff — that helps you choose. Each of these is a cost the retailer pays so you do not have to.`,
+ `The retailer also works for the manufacturer. It aggregates millions of small purchases into a few large orders, pays for the shelf the product sits on, and — increasingly — sells data and advertising space back to the brands. A modern supermarket is simultaneously a buyer for its customers, a landlord for its suppliers, a logistics company, and a media company.`,
+ `The single most useful idea in this whole school is this: <b>a retailer earns money by doing jobs cheaper or better than shoppers or manufacturers could do them themselves.</b> When a retailer stops adding value in one of those jobs, someone else — a warehouse club, a delivery app, a direct-to-consumer brand — takes that job away. Retail history is a long series of jobs being moved from one party to another.`],
+ ask:`For any service you see in a store (a deli counter, free samples, a self-checkout lane), ask: which job is this, and who used to do it?`,
+ terms:[
+  ['Retailer','A business that sells goods or services to final consumers for their own use, rather than to other businesses for resale.'],
+  ['Distribution channel','The chain of businesses a product passes through from maker to user: manufacturer → (wholesaler) → retailer → shopper.'],
+  ['Breaking bulk','Buying in large quantities (pallets, cases) and selling in the small quantities shoppers want (single units).'],
+  ['Assortment','The set of products a store chooses to carry. Choosing what not to carry is as much a part of the job as choosing what to carry.'],
+  ['SKU','Stock-keeping unit: one specific, separately tracked item — the 16 oz creamy jar and the 16 oz crunchy jar are two SKUs.'],
+  ['CPG','Consumer packaged goods: food, drinks, household and personal-care products sold in packages, mostly through supermarkets, mass merchants and drugstores.']],
+ kase:{kind:'fact', h:'Piggly Wiggly moves a job to the customer (1916)',
+  b:`Before 1916, a grocery shopper handed a list to a clerk, who walked the back shelves and fetched each item. Clarence Saunders' first Piggly Wiggly in Memphis let shoppers walk the aisles, pick goods themselves, and pay at a checkout — and Saunders patented the self-serving store layout. The retailer stopped paying for the "fetching" job and handed it to the customer, in exchange for lower prices. The side effects shaped everything after: products now had to sell themselves from the shelf, so brands, packaging and price tags suddenly mattered. Every self-checkout lane today is the same trade, a century later.`,
+  src:['lumen','osm18']},
+ field:`Stand just inside the entrance of a supermarket for five minutes. List every job you can see the store doing for you that you would otherwise have to do yourself (storing, choosing, preparing, transporting, informing). Then list one job the store has handed to you.`,
+ check:{q:`If a manufacturer can sell directly to you online, why do most still sell through retailers?`,
+  a:`Because the retailer does several jobs more cheaply at scale: it combines thousands of brands into one trip (so each brand does not need its own delivery to your door), breaks bulk, holds local inventory, and supplies foot traffic. A single brand selling direct has to pay for all of those jobs alone, and for most low-priced products the cost of shipping one item to one home is larger than the retailer's entire margin.`},
+ qs:[
+  ['A grocery store buys cereal by the pallet and sells it by the box. Which retailer function is this?',['Assortment building','Breaking bulk','Information provision','Financing'],1,'Breaking bulk: converting the manufacturer’s large shipping quantities into the small quantities shoppers buy.'],
+  ['Self-checkout is best understood, economically, as:',['A purely technological upgrade','Moving the scanning-and-bagging job from paid staff to the shopper','A way to sell more products per trip','A legal requirement'],1,'Like Piggly Wiggly’s self-service in 1916, it shifts a job (and its labor cost) from the retailer to the customer.'],
+  ['Which statement best captures why retailers exist?',['They own the products they sell','They perform distribution jobs more cheaply or better than shoppers or manufacturers could','They are required by law between manufacturer and consumer','They set the prices manufacturers charge'],1,'Retailers earn their margin by doing channel jobs efficiently; when they stop adding value, the job moves elsewhere.']],
+ read:['lumen','osm18','mosby']},
+
+{n:'1.2', title:'Formats and business models', sub:'Supermarket, supercenter, club, dollar store, marketplace — and what each one is really selling',
+ goal:`Classify a store by format and say what its format implies about its prices, assortment, costs and customer.`,
+ lab:'membership',
+ body:[
+ `A <b>retail format</b> is a recognizable combination of size, assortment, price level, service and location. Formats exist because each one solves a different shopper problem at a different cost. Some of the main ones in the U.S.:`,
+ `<b>Conventional supermarket</b> (Schnucks, Kroger, Publix): roughly 30,000–60,000 sq ft, a full assortment of food plus some household goods, fresh departments (produce, meat, bakery, deli) and services (pharmacy, floral). Sells convenience and breadth for weekly and fill-in trips. <b>Supercenter</b> (Walmart Supercenter, Target with full grocery, Meijer): a supermarket fused to a general-merchandise discount store, often 150,000+ sq ft, so one trip covers groceries and a garden hose. <b>Warehouse club</b> (Costco, Sam's Club, BJ's): a membership fee, a deliberately narrow assortment (a few thousand SKUs versus 30,000+ in a supermarket), bulk packs, pallets on the floor and very low markups. <b>Limited-assortment grocer</b> (Aldi, and in its own way Trader Joe's): a small store with mostly private-label items, few choices per category, and lean labor.`,
+ `<b>Convenience store</b> (QuikTrip, 7-Eleven, Casey's): small, many locations, long hours, high prices per unit, and a business that increasingly earns its profit from food service and fuel rather than packaged goods. <b>Dollar / extreme-value store</b> (Dollar General, Dollar Tree): small rural and urban stores, small pack sizes, low absolute prices. <b>Department store</b> (Macy's, Dillard's): many departments of apparel, home and beauty, higher service, heavy reliance on promotions. <b>Specialty store</b> (Ulta, a running shop): deep in one category. <b>Category killer</b> (Home Depot, Best Buy): enormous depth in one category at low prices. <b>Off-price</b> (TJ Maxx, Ross): buys other retailers' excess and closeouts, so the assortment changes constantly.`,
+ `Online, the key split is <b>first-party (1P)</b> versus <b>third-party (3P) marketplace</b>. In 1P, the retailer buys inventory and resells it, earning a margin. In a marketplace, independent sellers list goods and the platform earns fees and commissions without owning the inventory. Amazon does both, which is why its business looks like a store, a mall landlord and an advertising company at once.`,
+ `Notice that a format's <b>business model</b> — how it actually earns its profit — can differ from what it appears to sell. A warehouse club appears to sell groceries, but a large share of its profit comes from membership fees. A convenience store appears to sell gas, but fuel is often a low-margin traffic driver for the high-margin coffee and food inside. Learning to see the real profit engine behind a format is the first skill of retail analysis.`],
+ ask:`What is this store actually charging me for — the goods, the convenience, the hours, the membership, or the experience?`,
+ terms:[
+  ['Retail format','A recognizable combination of store size, assortment, price level, service level and location — supermarket, club, convenience store, and so on.'],
+  ['Supercenter','A store combining a full supermarket and a general-merchandise discount store under one roof.'],
+  ['Warehouse club','A membership retailer selling a narrow assortment in bulk at low markups; membership fees are a major profit source.'],
+  ['Limited-assortment store','A format that carries few options per category, mostly private label, to cut costs and simplify operations (e.g., Aldi).'],
+  ['Off-price retailer','A retailer that buys excess, overrun or closeout merchandise from brands and other retailers and sells it below normal prices.'],
+  ['First-party (1P) vs. marketplace (3P)','1P: the retailer owns and resells inventory. 3P: independent sellers list on the retailer’s platform and pay fees.'],
+  ['Business model','How a company actually makes its profit, which may differ from what it appears to sell.']],
+ kase:{kind:'fact', h:'Costco sells memberships, and the groceries keep members renewing',
+  b:`Costco's fiscal 2024 Form 10-K reports membership fee revenue of about $4.83 billion — small next to roughly $250 billion of merchandise sales, but more than half of the company's operating income that year. Its renewal rate was 92.9% in the U.S. and Canada. Read the model backwards: because fees supply so much of the profit, Costco can price merchandise at thin markups, which makes the membership feel worth renewing, which keeps the fees coming. The low prices are not a charity; they are the product that sells the membership.`,
+  src:['cost10k','edgar']},
+ field:`Pick three stores near you of different formats (for example a Schnucks, a Walmart Supercenter and a QuikTrip or Dollar General). For each, note: rough size, how many brands of one simple product (say, ketchup), whether prices are posted per unit, how many staff you see on the floor, and what you think the store's real profit engine is.`,
+ check:{q:`Why can a warehouse club carry only about 4,000 SKUs when a supermarket carries 30,000 or more, and still win customers?`,
+  a:`Because it is solving a different problem. A club shopper is buying in bulk for value, not looking for every variety. Fewer SKUs mean each one sells in enormous volume, which gives the club buying power, simpler logistics (pallets straight to the floor), fewer staff and much faster inventory turnover. Those savings fund lower prices. The narrow choice is part of the model, not a limitation of it.`},
+ qs:[
+  ['A store earns a large share of its profit from annual fees and keeps markups very low. Its format is most likely:',['Department store','Warehouse club','Convenience store','Specialty store'],1,'Membership fees are the defining profit engine of warehouse clubs such as Costco and Sam’s Club.'],
+  ['In a third-party marketplace, the platform mainly earns money from:',['The markup on inventory it owns','Fees and commissions paid by independent sellers','Membership fees only','Manufacturer rebates'],1,'In 3P, sellers own the inventory; the platform earns fees, commissions and often advertising.'],
+  ['Why do many convenience stores keep fuel prices competitive even though fuel margins are thin?',['Fuel is required by law to be cheap','Fuel brings in traffic for higher-margin food, drinks and snacks inside','Fuel has the highest margin in the store','Fuel suppliers set the price'],1,'Fuel is a traffic driver; the in-store purchases are where much of the profit is.']],
+ read:['osm18','lumen','cost10k']},
+
+{n:'1.3', title:'Reading a store’s P&L', sub:'Revenue, cost of goods, gross margin, expenses, and the penny of profit at the bottom',
+ goal:`Read a retail profit-and-loss statement line by line, and explain what each line means for decisions on the shop floor.`,
+ lab:'pnl',
+ body:[
+ `Every store decision eventually lands on one document: the <b>profit and loss statement</b> (P&L), also called the income statement. It is simpler than it looks. Read it top to bottom as a story about where each sales dollar goes.`,
+ `<b>Sales</b> (revenue) is what shoppers paid. Subtract <b>cost of goods sold</b> (COGS) — what the store paid suppliers for the products it sold, net of vendor allowances, plus freight and usually shrink. What is left is <b>gross profit</b>, or <b>gross margin</b> when expressed as a percentage of sales. A supermarket's gross margin is typically somewhere in the high 20s percent; a jewelry store's can be above 50%; a warehouse club's is lower still than a supermarket's.`,
+ `From gross profit the store pays its <b>operating expenses</b>: labor (wages, benefits — usually the biggest), occupancy (rent or depreciation of the building, utilities, maintenance), and everything else — card-processing fees, advertising, supplies, technology, insurance. What remains is <b>operating profit</b>. After interest and taxes comes <b>net profit</b>.`,
+ `The striking fact about grocery is how little survives to the bottom line. FMI, the food retail trade association, found average grocery net profit margins of about 1.6% in 2023 — about a penny and a half per dollar of sales. That one fact explains an astonishing amount of supermarket behavior: why managers obsess over shrink, why a few extra minutes of labor per shift matters, why stores push high-margin prepared food and private label, and why a single bad promotion can erase a week of profit.`,
+ `A useful habit: whenever you see a cost, convert it into <b>sales needed to cover it</b>. If net margin is 2%, a $10 bottle of shampoo that is stolen does not cost $10 of profit — it is $10 of lost cost-of-goods that has to be recovered from the profit on other sales, which means the store needs about $10 ÷ 0.02 = <b>$500</b> of additional sales just to break even on that one theft.`],
+ ask:`Which line of the P&L is this decision trying to move — sales, gross margin, labor, occupancy, or shrink?`,
+ terms:[
+  ['P&L (income statement)','The financial statement that runs from sales, through costs, down to profit for a period.'],
+  ['COGS','Cost of goods sold: what the retailer paid for the merchandise it sold, net of vendor discounts, usually including inbound freight and shrink.'],
+  ['Gross margin','(Sales − COGS) ÷ Sales. The share of each sales dollar left after paying for the goods.'],
+  ['Operating expenses (opex)','The costs of running the business: labor, occupancy, advertising, supplies, card fees, technology.'],
+  ['Operating profit','Gross profit minus operating expenses; profit from running stores, before interest and taxes.'],
+  ['Net margin','Net profit ÷ Sales. In grocery, typically only one to three cents per dollar.'],
+  ['Shrink','Inventory that is lost rather than sold: theft, damage, spoilage, and paperwork errors.'],
+  ['Basis point','One hundredth of a percentage point (0.01%). A margin moving from 28.0% to 28.5% has risen 50 basis points.']],
+ math:{h:'The P&L in four lines',
+  f:[['Gross profit = Sales − COGS','What is left to run the store after paying for the goods'],
+     ['Gross margin % = Gross profit ÷ Sales','How much of each dollar the store keeps before expenses'],
+     ['Operating profit = Gross profit − Operating expenses','Profit from operations'],
+     ['Sales needed to recover a loss = Loss ÷ Net margin %','How much extra selling a mistake costs']],
+  b:`A store sells $500,000 in a week. COGS is $360,000, so gross profit is $140,000 and gross margin is 28%. Labor is $62,000, occupancy $28,000 and other expenses $38,000 — $128,000 of opex — leaving $12,000 operating profit, or 2.4% of sales. Now imagine one department over-orders strawberries and throws out $1,200 of them. That is 10% of the week's operating profit gone, and the store would need $1,200 ÷ 0.024 = $50,000 of extra sales to earn it back.`},
+ kase:{kind:'hypo', h:'Two managers, one dollar',
+  b:`Hypothetical. Manager A finds a way to add $20,000 in weekly sales through a new promotion, at a 2% incremental net margin: +$400 profit. Manager B cuts $400 of avoidable spoilage in produce. On the P&L the two results are identical, but B's took no extra customers, no extra labor and no vendor negotiation. This is why good grocery operators are fanatical about cost lines that look tiny next to sales.`,
+  src:[]},
+ field:`At the register or on your receipt, look for any sign of the store chasing gross margin: a store-brand suggestion, a prepared-food promotion, a "round up" or bag fee, a high-margin impulse rack. Write down three and which P&L line each one helps.`,
+ check:{q:`A store's net margin is 2%. A shopper steals a $15 item. How much extra in sales does the store need to make up the loss, and why is the answer so much larger than $15?`,
+  a:`$15 ÷ 0.02 = $750. The store must recover the lost $15 from profit, and it only keeps two cents of profit per sales dollar, so it has to sell $750 of other merchandise to generate $15 of profit. Thin margins magnify every loss.`},
+ qs:[
+  ['Sales are $1,000,000 and COGS is $720,000. Gross margin is:',['72%','28%','38.9%','2.8%'],1,'(1,000,000 − 720,000) ÷ 1,000,000 = 28%.'],
+  ['FMI reported average U.S. grocery net profit margins in 2023 of roughly:',['1.6%','16%','28%','45%'],0,'About a penny and a half per sales dollar, which is why grocers obsess over small costs.'],
+  ['The largest operating expense line in most supermarkets is usually:',['Advertising','Labor','Card fees','Supplies'],1,'Wages and benefits are typically the biggest controllable expense in a store.'],
+  ['A margin moves from 27.4% to 27.9%. That is a change of:',['0.5 basis points','5 basis points','50 basis points','500 basis points'],2,'0.5 percentage points = 50 basis points.']],
+ read:['lumen','groceryDiveFmi','fmi','edgar']},
+
+{n:'1.4', title:'Margin versus turns', sub:'Why Costco and a jewelry store can both be good businesses',
+ goal:`Use the strategic profit model to explain how a low-margin retailer can earn a higher return than a high-margin one.`,
+ lab:'turnover',
+ body:[
+ `Gross margin is not the score. A retailer is an investment: it ties up money in inventory and buildings, and what matters is how much profit that money earns. There are two ways to earn a good return on the money in a store: make a lot on each sale (<b>margin</b>), or sell the same inventory many times a year (<b>turns</b>).`,
+ `<b>Inventory turnover</b> is how many times a year the store sells through its average inventory: COGS ÷ average inventory at cost. A supermarket might turn its inventory a dozen or more times a year (fresh departments far faster); a furniture store a few times; a fine jeweler perhaps once or twice. Its flip side, <b>days of supply</b> (365 ÷ turns), tells you how long the average item sits before selling.`,
+ `The <b>strategic profit model</b> (an application of the DuPont formula) multiplies the two: <b>return on assets = net margin × asset turnover</b>. A store earning 2% on sales but turning its assets 3.5 times a year gets 7% on its assets. A store earning 10% on sales but turning its assets only 0.7 times gets the same 7%. Same destination, opposite roads.`,
+ `For merchandise decisions, buyers use <b>GMROI</b> — gross margin return on inventory investment: gross margin dollars ÷ average inventory at cost. It answers the question a buyer actually faces: "for every dollar I tie up in this item's inventory, how many dollars of gross margin do I get back a year?" A product with a low margin but blazing sales can have a far better GMROI than a premium item that sits for months. GMROI is why the bananas get a prime spot and the imported saffron gets a small one.`],
+ ask:`Is this item, department or store built to win on margin per sale, or on how fast it sells?`,
+ terms:[
+  ['Inventory turnover','COGS ÷ average inventory at cost. How many times a year the stock is sold and replaced.'],
+  ['Days of supply','365 ÷ turnover (or inventory ÷ average daily COGS). How long the stock on hand would last.'],
+  ['Strategic profit model','Return on assets = net profit margin × asset turnover. Shows margin and speed as two routes to the same return.'],
+  ['GMROI','Gross margin return on inventory investment = gross margin $ ÷ average inventory at cost.'],
+  ['Asset turnover','Sales ÷ total assets. How hard the store, fixtures and inventory are working.']],
+ math:{h:'Margin × speed',
+  f:[['Turnover = COGS ÷ Average inventory (at cost)','Times per year the stock sells through'],
+     ['Days of supply = 365 ÷ Turnover','How long a typical item sits'],
+     ['GMROI = Gross margin $ ÷ Average inventory (at cost)','Margin earned per dollar tied up in stock'],
+     ['ROA = Net margin × (Sales ÷ Assets)','Margin route × speed route']],
+  b:`Item A: annual sales $10,000, gross margin 40% ($4,000), average inventory at cost $2,000 → GMROI = 2.0. Item B: annual sales $40,000, gross margin 15% ($6,000), average inventory $1,000 → GMROI = 6.0. The "low-margin" item returns three times as much margin per inventory dollar.`},
+ kase:{kind:'fact', h:'Costco’s markup ceiling (as reported)',
+  b:`In a widely cited 2005 account, Costco co-founder Jim Sinegal described a rule capping markups at about 14% on branded goods and 15% on Kirkland Signature private label, compared with typical supermarket markups around 25% or more. Treat the exact caps as historical reporting rather than current policy. The logic is the strategic profit model in action: a club with very low margins only works if pallets fly off the floor — huge volume per SKU, fast turns, and membership fees on top.`,
+  src:['cost10k']},
+ field:`Find two items in the same store: one that you suspect turns fast with a low margin (milk, bananas, a top-selling soda) and one that probably turns slowly at a high margin (a specialty spice, a premium kitchen gadget, a gift item). Note where each is placed, how many are on the shelf, and how big the shelf space is relative to how often you think it sells.`,
+ check:{q:`Store X earns a 2% net margin and turns its assets 3.5 times a year. Store Y earns 7% and turns its assets once a year. Which earns the better return on assets, and what does that teach?`,
+  a:`X: 2% × 3.5 = 7%. Y: 7% × 1 = 7%. They tie. Margin alone tells you nothing about how good a business is; you have to multiply by how fast the money comes back. Low-margin retailers like clubs and discounters live on turns.`},
+ qs:[
+  ['COGS is $1,200,000 and average inventory at cost is $100,000. Turnover is:',['0.08','12','120','1.2'],1,'1,200,000 ÷ 100,000 = 12 turns a year, about 30 days of supply.'],
+  ['GMROI answers which question?',['How many shoppers bought the item','How much gross margin each dollar of inventory investment earns','What share of sales is profit','How fast the store grows'],1,'GMROI = gross margin dollars ÷ average inventory at cost.'],
+  ['A low-margin item can deserve more shelf space than a high-margin item because:',['Margins do not matter','Its faster turnover can produce more margin dollars per dollar of inventory and per foot of shelf','Low-margin items are always cheaper to stock','Manufacturers require it'],1,'Margin × speed decides the return; fast movers often win on GMROI.']],
+ read:['lumen','mosby','cost10k']},
+
+{n:'1.5', title:'Fixed costs, scale and break-even', sub:'Why the store stays open at 10 p.m., and why comparable-store sales matter so much',
+ goal:`Separate fixed from variable costs, compute a break-even point, and explain operating leverage in a store.`,
+ lab:'breakeven',
+ body:[
+ `Some costs move with every sale: the cost of the item, the card fee, the bag. These are <b>variable costs</b>. Others hardly move at all within a month: rent, the store manager's salary, the minimum crew needed to open the doors, refrigeration running all night. These are <b>fixed costs</b> (or, more honestly, <b>semi-fixed</b>, because labor can flex somewhat).`,
+ `The money each sale contributes after its own variable cost is its <b>contribution margin</b>. Contribution first pays the fixed costs; only after they are covered does it become profit. The sales level where total contribution exactly covers fixed costs is the <b>break-even point</b>: fixed costs ÷ contribution margin ratio.`,
+ `Because a store's fixed costs are large, profit is very sensitive to sales volume. This is <b>operating leverage</b>. A store that just breaks even at $400,000 a week might earn a respectable profit at $440,000, because almost all of the extra contribution drops straight through. It also explains behavior that looks odd from the outside: staying open late when the last two hours bring in little, because the building, refrigeration and much of the crew are paid for anyway; keeping a pharmacy because it brings weekly visits; accepting a thin-margin promotion that brings more people through the door.`,
+ `It is also why retailers and investors fixate on <b>comparable-store sales</b> ("comps" or same-store sales): growth in stores open at least a year. Total sales can grow just by opening stores; comps show whether the existing stores — with their fixed costs already sunk — are drawing more business. Positive comps on a high fixed-cost base are where retail profit growth comes from.`],
+ ask:`Is this decision about covering fixed costs (traffic, hours, volume) or about squeezing variable costs (price paid, shrink, card fees)?`,
+ terms:[
+  ['Fixed cost','A cost that does not change with sales volume in the short run — rent, base salaries, insurance.'],
+  ['Variable cost','A cost that rises with each unit sold — the goods themselves, card fees, bags.'],
+  ['Contribution margin','Price minus variable cost, per unit or as a ratio of sales. What each sale contributes toward fixed costs and profit.'],
+  ['Break-even point','The sales level at which contribution exactly equals fixed costs; above it, the store makes money.'],
+  ['Operating leverage','The way high fixed costs make profit swing much more than sales do.'],
+  ['Comparable-store sales (comps)','Sales growth in stores open at least a year (or another fixed period), excluding new openings and closings.']],
+ math:{h:'Break-even',
+  f:[['Contribution margin ratio = (Sales − Variable costs) ÷ Sales','Cents per sales dollar that go toward fixed costs'],
+     ['Break-even sales = Fixed costs ÷ CM ratio','Sales needed to cover fixed costs'],
+     ['Profit = Sales × CM ratio − Fixed costs','Everything above break-even, times the CM ratio']],
+  b:`A store's weekly fixed costs are $90,000. Its variable costs (goods, card fees, variable labor) are 76% of sales, so the contribution margin ratio is 24%. Break-even = $90,000 ÷ 0.24 = $375,000 a week. At $400,000 the store earns $400,000 × 0.24 − $90,000 = $6,000. A 10% rise in sales to $440,000 earns $15,600 — sales up 10%, profit up 160%. That is operating leverage, and it runs just as hard in reverse.`},
+ kase:{kind:'hypo', h:'The 10 p.m. question',
+  b:`Hypothetical. A supermarket considers closing at 10 p.m. instead of midnight. The last two hours average $3,000 in sales at a 24% contribution ratio: $720 of contribution. Closing early saves two cashiers and a stocker for two hours (about $150) and a little electricity — but the overnight stocking crew still works, the refrigeration still runs, and some late shoppers will switch stores for all their shopping, not just the late trips. On those numbers the late hours pay; the decision flips only if late sales were far lower, or late-night security costs were high. The right analysis compares contribution lost against costs actually avoided, not against "costs of the store."`,
+  src:[]},
+ field:`Visit a store in the last hour before closing, or early in the morning. Count staff and shoppers, and note what the staff are doing (stocking? cleaning? serving?). Which costs are present whether or not shoppers come in?`,
+ check:{q:`Why does a retailer with high fixed costs care so much about comparable-store sales?`,
+  a:`Because once rent, base labor and equipment are paid for, most of the contribution from extra sales in an existing store falls straight to profit (operating leverage). Comps measure exactly those extra sales in stores whose fixed costs are already covered. Total sales growth from new stores brings new fixed costs with it; comp growth does not.`},
+ qs:[
+  ['Fixed costs are $60,000 per week and the contribution margin ratio is 20%. Break-even weekly sales are:',['$12,000','$72,000','$300,000','$1,200,000'],2,'$60,000 ÷ 0.20 = $300,000.'],
+  ['Which is best described as a variable cost for a store?',['Rent','The store manager’s salary','Card-processing fees on each sale','Property insurance'],2,'Card fees rise with every sale; the others are largely fixed in the short run.'],
+  ['"Comparable-store sales" exclude:',['Online sales','Stores opened in the last year','Grocery sales','Promotional sales'],1,'Comps compare like with like: stores open at least a year, so new openings do not inflate growth.']],
+ read:['lumen','mosby','census']},
+],
+
+assign:{ title:'Assignment 1 — Read the store’s numbers',
+ brief:`You are the new assistant manager of a hypothetical 45,000 sq ft supermarket. The district manager hands you last year's summary and asks you to explain it back. All numbers are invented for practice.
+ <table><tr><th>Line</th><th>Annual</th></tr>
+ <tr><td>Sales</td><td class="n">$24,000,000</td></tr>
+ <tr><td>Cost of goods sold</td><td class="n">$17,280,000</td></tr>
+ <tr><td>Labor</td><td class="n">$2,880,000</td></tr>
+ <tr><td>Occupancy</td><td class="n">$960,000</td></tr>
+ <tr><td>All other operating expenses</td><td class="n">$1,920,000</td></tr>
+ <tr><td>Average inventory at cost</td><td class="n">$1,152,000</td></tr></table>`,
+ items:[
+  {t:'num', q:'Gross margin, as a percent of sales.', a:28, tol:0.15, unit:'%', why:'(24,000,000 − 17,280,000) ÷ 24,000,000 = 6,720,000 ÷ 24,000,000 = 28%.'},
+  {t:'num', q:'Operating profit in dollars.', a:960000, tol:500, unit:'$', why:'Gross profit 6,720,000 − (2,880,000 + 960,000 + 1,920,000 = 5,760,000) = $960,000.'},
+  {t:'num', q:'Operating profit as a percent of sales.', a:4, tol:0.05, unit:'%', why:'960,000 ÷ 24,000,000 = 4%.'},
+  {t:'num', q:'Labor as a percent of sales.', a:12, tol:0.05, unit:'%', why:'2,880,000 ÷ 24,000,000 = 12%.'},
+  {t:'num', q:'Inventory turnover (times per year).', a:15, tol:0.1, unit:'turns', why:'17,280,000 ÷ 1,152,000 = 15 turns, a bit over 24 days of supply.'},
+  {t:'num', q:'GMROI.', a:5.83, tol:0.03, unit:'', why:'Gross margin $6,720,000 ÷ average inventory $1,152,000 ≈ 5.83: each inventory dollar returns about $5.83 of gross margin a year.'},
+  {t:'num', q:'Shoplifters take $12,000 of merchandise this year. Using the 4% operating margin, how much extra sales would replace that profit?', a:300000, tol:500, unit:'$', why:'12,000 ÷ 0.04 = $300,000 of additional sales.'},
+  {t:'mc', q:'The district manager proposes a promotion that would add $500,000 of sales at a 1% incremental operating margin, or a spoilage-reduction project that would save $8,000. Purely on profit:', o:['The promotion wins: $500,000 is a big number','The spoilage project wins: $8,000 versus $5,000','They are equal','Impossible to say'], a:1, why:'The promotion adds $500,000 × 1% = $5,000 of profit. The spoilage project adds $8,000 straight to the bottom line, with no extra traffic or labor needed.'},
+  {t:'text', q:'In three or four sentences, explain to the district manager why this store might keep its 24-hour pharmacy even if the pharmacy itself barely breaks even.', model:`A strong answer mentions that the pharmacy is a traffic and loyalty driver: prescriptions bring shoppers back every few weeks, and many of them buy groceries on the same trip. Because the store's fixed costs are already paid, the contribution from those extra baskets falls largely to profit (operating leverage). Closing the pharmacy could lose whole shopping relationships, not just pharmacy sales. A great answer suggests measuring the basket size of pharmacy customers versus others before deciding.`}
+ ]},
+
+field:{ id:'f101', title:'Field assignment 1 — Format fingerprint',
+ where:'Any two stores of different formats (e.g., Schnucks and Aldi, or Walmart and QuikTrip).', time:'30–45 minutes',
+ brief:`Read two stores as business models. You are not judging which is "better" — you are working out how each one makes money.`,
+ steps:[
+  `Walk the whole store once without stopping. Note the size, the number of aisles, and where fresh food sits.`,
+  `Pick one simple product (ketchup, paper towels or canned tomatoes). Count the brands and sizes offered.`,
+  `Count visible staff in one sweep, and note what each is doing.`,
+  `Look for the profit engines: membership desk, pharmacy, prepared food, fuel, store brand, services.`],
+ fields:[
+  {k:'storeA', l:'Store A (name, format)', t:'text'},
+  {k:'storeB', l:'Store B (name, format)', t:'text'},
+  {k:'skuA', l:'Store A: brand/size options for your product', t:'num'},
+  {k:'skuB', l:'Store B: brand/size options for your product', t:'num'},
+  {k:'staffA', l:'Store A: staff seen in one sweep', t:'num'},
+  {k:'staffB', l:'Store B: staff seen in one sweep', t:'num'},
+  {k:'engines', l:'Profit engines you spotted in each store', t:'area'},
+  {k:'model', l:'Margin or turns? Which route is each store taking, and what evidence did you see?', t:'area'}],
+ reflect:[`Which of the five retailer jobs (assortment, breaking bulk, inventory, location/hours, information) does each store do more of, and which does it hand to you?`,`If you had to cut 10% of costs at each store, where would each one cut, given its model?`]},
+
+quiz:[
+ ['A retailer’s gross margin rises from 26% to 27% while its sales stay flat. The change is:',['1 basis point','10 basis points','100 basis points','1,000 basis points'],2,'One percentage point is 100 basis points.'],
+ ['Which pair are the two multiplied terms in the strategic profit model?',['Price and quantity','Net margin and asset turnover','Traffic and conversion','Markup and markdown'],1,'ROA = net margin × asset turnover.'],
+ ['Breaking even means:',['Selling at cost','Contribution margin exactly covering fixed costs','Zero sales','Gross margin equal to net margin'],1,'Below break-even the store loses money; above it, contribution becomes profit.'],
+]
+};

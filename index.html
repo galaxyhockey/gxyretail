@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A private field school for retail management — how stores make money, price, promote, merchandise, staff and compete, taught for the shop floor.">
+<meta name="robots" content="noindex, nofollow">
+<title>Endcap — a field school for retail management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#10213A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Endcap">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="stylesheet" href="assets/style.css">
+<script>
+  /* Apply a forced light/dark theme before first paint (Settings → Appearance). */
+  try{ var t = localStorage.getItem('endcap:theme'); if(t === '"light"' || t === '"dark"') document.documentElement.dataset.theme = JSON.parse(t); }catch(e){}
+</script>
+</head>
+<body>
+
+<!-- ===== boot check: catches the two ways this page fails silently ===== -->
+<div id="bootfail" style="display:none;position:fixed;inset:0;z-index:9999;background:#10213A;
+  color:#E9EEF5;font:15px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  padding:38px 26px;overflow:auto">
+  <div style="max-width:640px;margin:0 auto">
+    <h1 style="font-size:26px;color:#fff;margin:0 0 10px">This page did not load properly</h1>
+    <p id="bootwhy" style="color:#9FB0C8"></p>
+    <div id="bootfix"></div>
+  </div>
+</div>
+<script>
+(function(){
+  function fail(why, fix){
+    var el = document.getElementById('bootfail'); if(!el) return;
+    document.getElementById('bootwhy').innerHTML = why;
+    document.getElementById('bootfix').innerHTML = fix;
+    el.style.display = 'block';
+  }
+  window.addEventListener('DOMContentLoaded', function(){
+    var css = '';
+    try { css = getComputedStyle(document.documentElement).getPropertyValue('--slate').trim(); } catch(e){}
+    if(location.protocol === 'file:'){
+      fail('You have opened this file directly from disk (<code>file://</code>). Browsers block JavaScript modules on <code>file://</code>, so nothing on the page can run.',
+        '<p style="color:#9FB0C8">Serve the folder over HTTP instead. From a terminal, inside the folder that contains <code>index.html</code>:</p>' +
+        '<pre style="background:#0B1830;padding:14px;overflow-x:auto;color:#FFD23F">python3 -m http.server 8080</pre>' +
+        '<p style="color:#9FB0C8">Then open <a style="color:#fff" href="http://localhost:8080/">http://localhost:8080/</a>.</p>');
+      return;
+    }
+    if(!css){
+      fail('The stylesheet <code>assets/style.css</code> could not be found, which means the <code>assets</code> folder is missing or is not next to this file.',
+        '<p style="color:#9FB0C8">Download the whole project, not just <code>index.html</code>.</p>');
+      return;
+    }
+    setTimeout(function(){
+      if(!window.__endcapBooted){
+        fail('The stylesheet loaded but <code>assets/app.js</code> did not run. Usually one asset file is missing or the browser blocked a module.',
+          '<p style="color:#9FB0C8">Open the browser console (F12 → Console) and look for a red 404 or an import error — it will name the missing file.</p>');
+      }
+    }, 3500);
+  });
+})();
+</script>
+
+<!-- ================= AUTH GATE ================= -->
+<div id="gate" class="hide">
+  <div class="box">
+    <h1>Endcap</h1>
+    <p>A private field school for retail management. Sign in to keep your progress, field reports and reviews across devices.</p>
+    <div class="row"><button id="gate-google">Sign in with Google</button></div>
+    <div class="row">
+      <input type="email" id="gate-email" placeholder="email" autocomplete="username">
+      <input type="password" id="gate-pass" placeholder="password" autocomplete="current-password">
+      <button class="alt" id="gate-emailbtn">Sign in with email</button>
+    </div>
+    <div class="msg" id="gate-msg"></div>
+    <p class="fine">If Firebase is not configured, this screen is skipped and everything is saved to this browser.</p>
+  </div>
+</div>
+
+<div id="app" class="hide">
+
+<div id="lock-warn" class="hide"></div>
+<div id="net-state"></div>
+<div id="update-toast" class="hide"></div>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-in">
+    <div>
+      <span class="eyebrow">Endcap · a field school for retail management</span>
+      <h1>Why is the retailer<br> <em>doing this?</em></h1>
+      <p class="lede" id="hero-tagline">A field school for retail management.</p>
+      <div class="disciplines" id="hero-courses"></div>
+      <p class="motto" id="hero-motto"></p>
+      <div class="hero-who" id="mast-who"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" aria-label="Sections">
+  <div class="nav-in" id="nav">
+    <button data-v="home" aria-current="true">Console</button>
+    <button data-v="program">Program</button>
+    <button data-v="labs">Labs</button>
+    <button data-v="field">Field</button>
+    <button data-v="reference">Reference</button>
+    <button data-v="settings">Settings</button>
+  </div>
+</nav>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail-sticky">
+      <div class="progress-box">
+        <p>Program</p>
+        <div class="bar"><i id="barfill"></i></div>
+        <b id="bartext">0 / 50 units</b>
+      </div>
+      <div id="rail-body"></div>
+    </div>
+  </aside>
+
+  <main>
+
+<!-- ============ CONSOLE ============ -->
+<div class="view on" id="v-home">
+  <section id="s-daily" data-rail="Question of the day"></section>
+  <section id="s-today" data-rail="Today">
+    <h2>Today</h2>
+    <div class="resume" id="s-today-cards"></div>
+  </section>
+  <section id="s-progress" data-rail="Transcript">
+    <h2>Transcript</h2>
+    <p class="lede-2">Ten courses in four stages. Each unit is one sitting: a lesson, key terms, the math where it matters, a real or clearly-labelled hypothetical case, a lab, something to look for in a store, and a quick quiz. Each course ends with an assignment and a field assignment.</p>
+    <div id="s-stats"></div>
+    <div id="s-transcript-body" style="margin-top:16px"></div>
+  </section>
+  <section id="s-how" data-rail="How it works" class="about">
+    <h2>How this school works</h2>
+    <div class="grid3">
+      <div class="card"><h4>Learn it</h4><p>Read a unit, work its lab, answer its quick quiz. Units build on each other; RTL 101 first is the only rule.</p></div>
+      <div class="card"><h4>See it</h4><p>Every unit ends with something to look for in a real store. File what you see to your field notebook, and do each course’s field assignment.</p></div>
+      <div class="card"><h4>Keep it</h4><p>One question a day from what you have studied, with misses brought back two days later; plus a spaced-repetition deck of check questions and vocabulary.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PROGRAM ============ -->
+<div class="view" id="v-program">
+  <section id="prog-cat" data-rail="Catalogue">
+    <h2>The program</h2>
+    <p class="lede-2">A compact, college-level retail management program. No business degree needed — every term is explained in plain English before you are asked to use it. Primary text: Lumen Learning’s open <i>Retail Management</i>, with OpenStax, Saylor, government data and research papers alongside.</p>
+    <div id="catalogue"></div>
+  </section>
+
+  <div id="prog-course" class="hide">
+    <section id="cd-sec" data-rail="Units">
+      <div id="cd-head"></div>
+      <div id="cd-units" class="units"></div>
+    </section>
+    <section id="cd-tools-sec" data-rail="Assignments & labs">
+      <h3 class="sub">Assignments & labs</h3>
+      <div id="cd-tools"></div>
+    </section>
+    <section id="cd-assign-sec" data-rail="Assignment">
+      <div id="cd-assign" class="assign"></div>
+    </section>
+    <section id="cd-quiz-sec" data-rail="Course review">
+      <h3 class="sub">Course review quiz</h3>
+      <div id="cd-quiz" class="quiz"></div>
+    </section>
+  </div>
+
+  <div id="prog-unit" class="hide"></div>
+</div>
+
+<!-- ============ LABS ============ -->
+<div class="view" id="v-labs">
+  <div id="labs-index">
+    <section id="labs-sec" data-rail="All labs">
+      <h2>Labs</h2>
+      <p class="lede-2">The business math, as instruments you can play with. Change a number and read what it means for the store. Each lab is also embedded in the unit that teaches it.</p>
+      <div id="labs-grid"></div>
+    </section>
+  </div>
+  <div id="labs-one" class="hide"></div>
+</div>
+
+<!-- ============ FIELD ============ -->
+<div class="view" id="v-field">
+  <div id="field-index">
+    <section id="s-fa" data-rail="Field assignments">
+      <h2>The field</h2>
+      <p class="lede-2">The point of the school: learn something here, then go and recognize it in a real store. Ten field assignments, one per course, plus a kit for the store floor and a notebook for what you find.</p>
+      <div class="fa-list" id="fa-list"></div>
+    </section>
+    <section id="s-kit" data-rail="Field kit">
+      <h2>Field kit</h2>
+      <p class="lede-2">Built for a phone in one hand. Counts and timings survive a reload; save a snapshot to your notebook when you are done.</p>
+      <div id="kit-box" class="kit"></div>
+    </section>
+    <section id="s-nb" data-rail="Field notebook">
+      <h2>Field notebook</h2>
+      <p class="lede-2">Everything you have observed, timed, counted, kept and filed, newest first.</p>
+      <div class="acct-actions" style="margin:0 0 14px"><button class="btn ghost" id="nb-export">Export notebook (Markdown)</button></div>
+      <div class="cm-list" id="nb-list"></div>
+    </section>
+  </div>
+  <div id="field-one" class="hide"></div>
+</div>
+
+<!-- ============ REFERENCE ============ -->
+<div class="view" id="v-reference">
+  <section id="s-ref" data-rail="Reference">
+    <h2>Reference</h2>
+    <div class="tabs" id="ref-tabs" role="tablist">
+      <button data-t="review" role="tab">Review<span id="srs-badge" class="badge hide"></span></button>
+      <button data-t="glossary" role="tab">Glossary</button>
+      <button data-t="formulas" role="tab">Formula sheet</button>
+      <button data-t="cases" role="tab">Case file</button>
+      <button data-t="library" role="tab">Library</button>
+    </div>
+    <div class="ref-pane" id="ref-review">
+      <p class="lede-2">Every unit you open adds its check question and its key terms to this deck. Cards you get right come back on a widening schedule; cards you miss come back tomorrow (and again later in the same session).</p>
+      <p id="review-meta" class="review-meta"></p>
+      <div id="review-body"></div>
+    </div>
+    <div class="ref-pane hide" id="ref-glossary">
+      <div class="gloss-tools"><input type="search" id="gloss-search" class="search" placeholder="Search the retail vocabulary…"><select id="gloss-course"></select><span class="fine" id="gloss-count"></span></div>
+      <dl class="gloss" id="gloss-list"></dl>
+    </div>
+    <div class="ref-pane hide" id="ref-formulas">
+      <p class="lede-2">Every formula in the program, with what the number means for the business. Each links back to the unit that teaches it.</p>
+      <div id="formula-list"></div>
+    </div>
+    <div class="ref-pane hide" id="ref-cases">
+      <p class="lede-2">Factual cases are drawn from company filings, reporting and research, and cite their sources. Hypothetical scenarios are invented for teaching and labelled as such. The school never mixes the two.</p>
+      <div class="tabs" id="case-filter"><button data-f="all" aria-selected="true">All</button><button data-f="fact" aria-selected="false">Factual cases</button><button data-f="hypo" aria-selected="false">Hypothetical</button></div>
+      <div id="case-list"></div>
+    </div>
+    <div class="ref-pane hide" id="ref-library">
+      <p class="lede-2">Every source the school cites. The lessons are written in original language; follow these for the full treatment. Free and open resources are preferred and marked.</p>
+      <div id="library-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ SETTINGS ============ -->
+<div class="view" id="v-settings">
+  <section id="s-account" data-rail="Access and storage">
+    <h2>Access and storage</h2>
+    <p id="acct-line" class="lede-2"></p>
+    <div id="uid-box"></div>
+    <div class="acct-actions">
+      <button class="btn ghost" id="acct-signout">Sign out</button>
+      <button class="btn ghost" id="acct-clearlocal">Clear local cache on this device</button>
+    </div>
+  </section>
+
+  <section id="s-look" data-rail="Appearance">
+    <h2>Appearance</h2>
+    <label class="pref">Theme
+      <select id="pref-theme"><option value="auto">Match this device</option><option value="light">Light — store floor</option><option value="dark">Dark — night aisle</option></select></label>
+  </section>
+
+  <section id="s-study" data-rail="Study settings">
+    <h2>Study settings</h2>
+    <label class="pref"><input type="checkbox" id="pref-vocab"> Include vocabulary cards in the review deck</label>
+    <label class="pref">Daily question draws from
+      <select id="pref-pool"><option value="met">units I have opened (recommended)</option><option value="all">the whole program</option></select></label>
+  </section>
+
+  <section id="s-data" data-rail="Your data">
+    <h2>Your data</h2>
+    <p class="lede-2">Back up everything — progress, notes, reviews, assignments, field reports — to a file, or restore it on another device.</p>
+    <div class="acct-actions">
+      <button class="btn ghost" id="data-export">Export backup (JSON)</button>
+      <label class="btn ghost filebtn">Import backup<input type="file" id="data-import" accept="application/json"></label>
+      <button class="btn ghost" id="nb-export2">Export field notebook (Markdown)</button>
+    </div>
+  </section>
+
+  <section id="s-install" data-rail="Install">
+    <h2>Install as an app</h2>
+    <div id="install-box"></div>
+  </section>
+
+  <section id="s-about" data-rail="About" class="about">
+    <h2>About this school</h2>
+    <p class="lede-2">Endcap is a field school built around one profession: retail management. It is a sibling of <a href="https://galaxyhockey.github.io/gxylycium/" target="_blank" rel="noopener">Lyceum</a>, the generalist school, and runs the same way: static files, an optional Firebase back end, no tracking, no accounts you do not control.</p>
+    <p><b>On sources.</b> The lessons, cases and exercises are original writing. They are grounded in Lumen Learning’s open <i>Retail Management</i> (the primary text), OpenStax and Saylor marketing texts, U.S. government data (Census, BLS, USDA, FTC, NIST), company filings, and peer-reviewed research, all linked in the Library. Factual claims about real companies come from those sources; hypothetical scenarios are always labelled. Where a famous retail “fact” is shaky — the jam study, beer and diapers — the lesson says so.</p>
+    <p><b>On numbers.</b> Industry figures (margins, e-commerce share, company results) are dated to their source. Treat them as a snapshot and check the source for the latest.</p>
+    <p class="fineprint" id="about-founded"></p>
+  </section>
+  </main>
+</div><!-- /shell -->
+</div><!-- /app -->
+
+<script type="module" src="assets/app.js"></script>
+<script type="module">
+  import { HOME } from './assets/config.js';
+  import { COURSES } from './assets/content/index.js';
+  const set = (id, txt) => { const e=document.getElementById(id); if(e) e.textContent = txt; };
+  set('hero-tagline', HOME.tagline || '');
+  set('hero-motto', HOME.motto || '');
+  document.title = `${HOME.name} — ${HOME.tagline||'a field school'}`;
+  const chips = document.getElementById('hero-courses');
+  if(chips) chips.innerHTML = COURSES.map(c =>
+    `<a class="disc-chip" href="#program/${c.id}" style="border-left-color:${c.color}">${c.code} ${c.title}</a>`).join('');
+</script>
+</body>
+</html>

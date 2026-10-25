@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Each user can read and write ONLY their own document tree.
+    // This is already secure against cross-account access. To make the
+    // deployment strictly single-user, replace isOwner with the pinned
+    // version that Settings → Access and storage generates for you (it hard-codes
+    // your UID), and redeploy with:
+    //   firebase deploy --only firestore:rules
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    match /users/{uid}/{document=**} {
+      allow read, write: if isOwner(uid);
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
